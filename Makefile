@@ -31,8 +31,17 @@ $(ms)/Makefile:
 
 ######################################################################
 
-Sources += $(wildcard *.R *.rmd *.tex *.sage *.ipynb *.py)
-Sources += $(tutorials) 
+Sources += $(wildcard *.R *.rmd *.tex *.sage *.ipynb *.py *.md)
+Sources += $(tutorials)
+
+######################################################################
+
+# https://cygubicko.github.io/math1mp3-fall2019
+index.html.pages: index.html
+
+tutorial1.html: tutorial1.md
+trial.out: trial.ipynb
+	jupyter-notebook $< |tee > $@
 
 ######################################################################
 
