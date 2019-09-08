@@ -39,9 +39,8 @@ Sources += $(tutorials)
 # https://cygubicko.github.io/math1mp3-fall2019
 index.html.pages: index.html
 
-tutorial1.html: tutorial1.md
-trial.out: trial.ipynb
-	jupyter-notebook $< |tee > $@
+# https://cygubicko.github.io/math1mp3-fall2019/tutorial1.html
+tutorial1.html.pages: tutorial1.rmd
 
 ######################################################################
 
