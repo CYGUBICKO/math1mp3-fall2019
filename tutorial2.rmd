@@ -1,0 +1,486 @@
+---
+title: "Tutorial 2: Basic Python Containers (Lists, Dictionaries, Sets, Tuples), Conditionals and Flow Control"
+author: "Steve Cygu"
+date: "`r format(Sys.time(), '%d %B %Y ')`"
+output: html_document
+#  tufte::tufte_html:
+#     pandoc_args: ["--dpi", "300"]
+---
+
+
+## Running Python
+
+- via **notebooks** (http://mcmaster.syzygy.ca or on your own computer)
+- via **scripts** + **console** (http://mcmaster.syzygy.ca/jupyter/user-redirect/lab)
+
+
+```{R opts,message=FALSE,echo=FALSE,warning=FALSE}
+library("knitr")
+library("reticulate")
+use_python("/usr/bin/python3")
+```
+
+# Basic Python Containers
+
+The other standard data types in Python are:
+
+- Lists
+- Tuples
+- Dictionaries
+
+## Lists
+
+- Defined as `[,...,]`
+- More versatile and **mutable**
+- Slice operator `[]` and `[:]`
+- Indexes from 0 all the way to the end `-1`
+- Concatenation operator, `*` and `+`
+
+For instance, we may want to input voltage and current
+
+
+	voltage:
+		-2.0
+		-1.0
+		0.0
+		1.0
+		2.0
+
+	current:
+		-1.0
+		-0.5
+		0.0
+		0.5
+		1.0
+
+**Examples**
+
+```{python ,eval=TRUE}
+voltage = [-2.0, -1.0, 0.0, 1.0, 2.0]
+
+current = [-1.0, -0.5, 0.0, 0.5, 1.0]
+```
+
+```{python ,eval=TRUE}
+type(voltage)
+
+type(current)
+```
+
+### Indexing and slicing
+
+- Indexing starts from zero
+
+**Examples**
+
+```{python ,eval=TRUE}
+voltage[0]
+```
+
+- Lists can be index from the end using negative index
+
+```{python ,eval=TRUE}
+voltage[-1]
+```
+
+We can also "slice" items from the list. 
+
+**Examples**
+
+```{python ,eval=TRUE}
+current[1:4]
+```
+
+```{python ,eval=TRUE}
+current[1:]
+```
+
+**Quiz**
+
+Power is defined as `power = current * voltage`.  What is the power for the second entry? For the fourth?
+
+
+### Append and Extend
+
+Just like strings have methods, lists do too.
+
+```{python ,eval=TRUE}
+dir(list)
+```
+
+Suppose we want to add the following to the end of our lists:
+
+	voltage:
+		5.0
+		6.0
+	
+	current:
+		7.8
+		6.5
+
+We can use **append**
+
+```{python ,eval=TRUE}
+current.append(7.8)
+```
+
+```{python ,eval=TRUE}
+current.append(6.5)
+```
+
+The **append** can be tedious in certain cases. We can use **extend** to add all the items at once.
+
+```{python ,eval=TRUE}
+voltage.extend([5.0, 6.0])
+```
+
+Python lists can also be extended using the `+` operator
+
+
+```{python ,eval=TRUE}
+[4.5, 6.0] + [2.0, 3.0]
+```
+
+Lists can contain hetergeneous data.
+
+
+```{python, eval = TRUE}
+data = ["experiment: current vs. voltage",
+	"run", 47,
+	"temperature", 372.756,
+	"current", [-1.0, -0.5, 0.0, 0.5, 1.0],
+	"voltage", [-2.0, -1.0, 0.0, 1.0, 2.0],
+]
+```
+
+
+```{python, eval = TRUE}
+print(data)
+```
+
+- `data` contains `ints`, `floats`, and `lists`
+
+
+**Quiz**
+
+Make a list that contains the following: your first name, your age as an integer, and your last name. Then, using that list, print a single string that looks like
+
+```
+<first name> <last name> is <age> years old.
+```
+
+
+### Length of Lists
+
+Sometimes you want to know how many items are in a list. Use the `len` command.
+
+
+```{python, eval = TRUE}
+len(voltage)
+```
+
+
+### Lists of Sequential Numbers
+
+Many times it is helpful to have a list of numbers in a row. In Python, this is called a `range`.
+
+```{python, eval = TRUE}
+range(5)
+```
+
+Note that the list that you get will start at 0 by default (like list indicies) and goes up to _but does not include_ the number requested. This may seem nonintutitive, but the rationale is the following:
+
+- the default is to start with `0`
+- the goal is to provide a list of `N` total number (for example, `range(5)` provides 5 numbers total
+
+**Quiz**
+
+Consider the following matrix
+
+$\left( \begin{array}{ccc}
+a & b & c \\
+d & e & f \\
+g & h & i \end{array} \right)$
+
+```{python, eval = TRUE}
+import numpy as np
+M = np.array([['a', 'b', 'c'], ['d', 'e', 'f'], ['g', 'h', 'i']])
+print(M)
+```
+
+Print out each of the vowels from `M`.
+
+**Examples**
+
+Write a program which computes mean, standard deviation and variance given a list
+
+Mean:
+\[\mu = \frac{\sum_i^n(x_i)}{n}\]
+
+
+```{python, eval = TRUE}
+vals = [3,5,6,7]
+"""Computes the mean from a list of values."""
+total = float(sum(vals))
+length = len(vals)
+mu = total/length
+print("Mean is :", mu)
+```
+
+Variance:
+\[\sigma^2 = \frac{\sum_i^n(x_i - \mu)^2}{n}\]
+
+Let's do this after the next section
+
+# Conditionals and Flow control
+
+This ssection covers how to write codes which will only execute if a () specified condition(s) is (are) are met and also how to automate repetitive tasks using `loops`.
+
+- Python comes with literal comparison operators.  Namely, `< > <= >= == !=`.  All comparisons return the lirteral boolean values: `True` or `False`.
+- Comparisons can be chained together with the the **and** & **or** Python keywords.
+
+## If statements
+
+That said, these comparisons can be placed inside of an **if** statement and the syntax is as follows:
+
+	if <condition>:
+		<indented block of code>
+
+- The indented code will only be execute if the condition evaulates to `True`, which is a special boolean value.
+
+The **if** statement can be combined to great effect with a corresponding **else** clause.
+
+	if <condition>:
+		<if-block>
+	else:
+		<else-block>
+
+- When the condition is `True` the if-block is executed.  When the condition is `False` the else-block is executed instead.
+
+Many cases may be tested by using the **elif** statement.  These come between all the if and else statements:
+
+	if <if-condition>:
+		<if-block>
+	elif <elif-condition>:
+		<elif-block>
+	else:
+		<else-block>
+
+When if-condition is true then only the if-block is executed.  When elif-condition is true then only the elif-block is executed.  When neither of these are true then the else-block is executed.
+
+
+While there must be one if statetment, and there may be at most one else statement, there maybe as many elif statements as are desired.
+
+	if <if-condition>:
+		<if-block>
+	elif <elif-condition1>:
+		<elif-block1>
+	elif <elif-condition2>:
+		<elif-block2>
+	elif <elif-condition3>:
+		<elif-block3>
+	...
+	else:
+		<else-block>
+
+**Examples**
+
+```{python, eval = TRUE}
+x = 5
+if x < 0:
+    print("x is negative")
+elif x == 0:
+    print("x is zero")
+elif x > 2:
+    print("x is bigger than 2")
+elif x == 2:
+    print("x is two")
+else:
+    print("x is positive and less than 2")
+```
+
+Check if a number is in a list
+
+```{python, eval = FALSE}
+x = int(input("Please input the number "))
+if x in list(range(10)):
+    print(str(x), " is in range(10)")
+else:
+    print(str(x), " is not in range(10)")
+```
+
+**Quiz**
+
+Write some conditions that print "True" if the variable `a` is within 10% of the variable `b` and "False" otherwise. Compare your implementation with your partner’s: what do you get if you compare (a=10, b=1), (a=5.1, b=5), and (a=6, b=6.6)? Is there any pair of numbers for which your implementation does not work?
+
+
+## Loops
+
+Loops come in two flavors: **while** and **for**.  While loops have the following structure:
+
+	while <condition>:
+		<indented block of code>
+
+As long as the condition is True, the code in the block will continue to execute.  This may lead to infitinely executing loops!
+
+
+```{python, eval = TRUE}
+fruits = ['apples', 'oranges', 'pears', 'bananas']
+i = 0
+while i < len(fruits):
+    print(fruits[i])
+    i = i + 1
+```
+
+Meanwhile, for-loops have the following structure:
+
+    for <loop variable name> in <iterable>:
+         <indented block of code>
+
+The loop will continue to execute as long as there are more iterations left in the iterable.  Upon each iteration, the value of that iteration is assigned to the loop variable.
+
+
+```{python, eval = TRUE}
+for fruit in fruits:
+    print(fruit)
+```
+
+
+```{python, eval = TRUE}
+# Use range for a range on integers
+for i in range(len(fruits)):
+    print(i, fruits[i])
+```
+
+
+```{python, eval = TRUE}
+# Calculating a sum
+values = [1254, 95818, 61813541, 1813, 4]
+total = 0
+for x in values:
+    total = total + x
+print(total)
+```
+
+**Quiz**
+
+Using a loop, calculate the factorial of 42 (the product of all integers up to and including 42).
+
+
+```{python, eval = FALSE}
+number = int(input("Enter a number "))
+factorial = 1
+if number < 0:
+	print("Factorial for negative integers does not exist!"
+elif number == 0:
+	print("Factorial of 0 is 1")
+else:
+	for num in range(1, number + 1):
+		factorial = factorial * number
+		print("The factorial of ", number, " is", factorial)
+```
+
+### break, continue, and else
+
+A break statement cuts off a loop from within an inner loop. It helps
+avoid infinite loops by cutting off loops when they're clearly going
+nowhere.
+
+```{python, eval = TRUE}
+reasonable = 10
+for n in range(1,2000):
+    if n == reasonable :
+        break
+    print(n)
+```
+
+Something you might want to do instead of breaking is to continue to the
+next iteration of a loop, giving up on the current one.
+
+```{python, eval = TRUE}
+reasonable = 10
+for n in range(1,20):
+    if n == reasonable :
+      continue
+    print(n)
+```
+
+## Reading from a file
+
+You gain acces the inside of files in Python using the `open()` function. By default, `open()` only lets you read a file. However, you can set the _mode_ to some other choices such as writing (`mode='w'`).
+
+The "file" that you open is a sequence of lines inside the file (technically, it's called a _file handle_). Every line ends in a special character `"\n"` called a _newline_. This character is present, but normally only read by computers and means "end the current line here". We can get rid of that with the `str` `strip()` method.
+
+```{python, eval = TRUE}
+my_file = open("example.txt")
+strip = True
+for line in my_file:
+    if strip:
+        print(line.strip())
+    else:
+        print(line)
+my_file.close()
+```
+
+
+## Writing to a file
+
+Note that you always should `close()` every file you `open()`.
+
+You can also write to files with Python. For example:
+
+
+```{python, eval = TRUE}
+new_file = open("example2.txt", mode="w")
+dwight = ['bears', 'beets', 'Battlestar Galactica']
+for i in dwight:
+    new_file.write(i + '\n')
+new_file.close()
+```
+
+We must explicitly use `mode="w"` in this case because we want to write to a file, not just read it. Why do this? Python is trying to protect us and make absolutely sure we want to change files.
+
+
+## List comprehensions
+Python has another way to perform iteration called list comprehensions.
+
+
+**Example**
+
+Multiply every number in a list by 2 using a for loop
+
+```{python, eval = TRUE}
+nums1 = [5, 1, 3, 10]
+nums2 = []
+for i in range(len(nums1)):
+    nums2.append(nums1[i] * 2)
+print(nums2)
+```
+
+
+```{python, eval = TRUE}
+# Multiply every number in a list by 2 using a list comprehension
+nums2 = [x * 2 for x in nums1]
+print(nums2)
+```
+
+**Example**
+
+Multiply every number in a list by 2, but only if the number is greater than 4
+
+```{python, eval = TRUE}
+nums1 = [5, 1, 3, 10]
+nums2 = []
+for i in range(len(nums1)):
+    if nums1[i] > 4:
+        nums2.append(nums1[i] * 2)
+
+print(nums2)
+```
+
+
+```{python, eval = TRUE}
+# And using a list comprehension
+nums2 = [x * 2 for x in nums1 if x > 4]
+print(nums2)
+```

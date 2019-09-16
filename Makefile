@@ -33,6 +33,7 @@ $(ms)/Makefile:
 
 Sources += $(wildcard *.R *.rmd *.tex *.sage *.ipynb *.py *.md)
 Sources += $(tutorials)
+Sources += example.txt
 
 ######################################################################
 
@@ -41,6 +42,9 @@ index.html.pages: index.html
 
 # https://cygubicko.github.io/math1mp3-fall2019/tutorial1.html
 tutorial1.html.pages: tutorial1.rmd
+
+# https://cygubicko.github.io/math1mp3-fall2019/tutorial12.html
+tutorial2.html: tutorial2.rmd
 
 ######################################################################
 
