@@ -33,7 +33,7 @@ $(ms)/Makefile:
 
 Sources += $(wildcard *.R *.rmd *.tex *.sage *.ipynb *.py *.md)
 Sources += $(tutorials)
-Sources += example.txt
+Sources += example.txt example2.txt
 
 ######################################################################
 
