@@ -41,11 +41,15 @@ Sources += example2.txt
 # https://cygubicko.github.io/math1mp3-fall2019
 index.html.pages: index.html
 
+
 # https://cygubicko.github.io/math1mp3-fall2019/tutorial1.html
 tutorial1.html.pages: tutorial1.rmd
 
 # https://cygubicko.github.io/math1mp3-fall2019/tutorial12.html
-tutorial2.html: tutorial2.rmd
+tutorial2.html.pages: tutorial2.rmd
+
+pushindex:
+	cd pages && git push
 
 ######################################################################
 
