@@ -525,7 +525,19 @@ mu = total/length
 print(&quot;Mean is :&quot;, mu)</code></pre>
 <pre><code>## Mean is : 5.25</code></pre>
 <p>Variance: <span class="math display">\[\sigma^2 = \frac{\sum_i^n(x_i - \mu)^2}{n}\]</span></p>
-<p>Let’s do this after the next section</p>
+<p>Let’s come to this after the next section</p>
+<pre class="python"><code>def std(vals):
+    &quot;&quot;&quot;Computes the standard deviation from a list of values.&quot;&quot;&quot;
+    n = len(vals)
+    if n == 0:
+        return 0.0
+    mu = sum(vals) / n
+    if mu == 1e500:
+        return NotImplemented
+    var = 0.0
+    for val in vals:
+        var = var + (val - mu)**2
+    return (var / n)**0.5</code></pre>
 </div>
 </div>
 </div>
