@@ -45,17 +45,21 @@ index.html.pages: index.html
 # https://cygubicko.github.io/math1mp3-fall2019/tutorial1.html
 tutorial1.html.pages: tutorial1.rmd
 
-# https://cygubicko.github.io/math1mp3-fall2019/tutorial12.html
+# https://cygubicko.github.io/math1mp3-fall2019/tutorial2.html
 tutorial2.html.pages: tutorial2.rmd
+
+# https://cygubicko.github.io/math1mp3-fall2019/tutorial3.html
+tutorial3.html: tutorial3.rmd
 
 ## Weekly tutorial templates
 # https://cygubicko.github.io/math1mp3-fall2019/tutorial_temp.html
-tutorial_temp.html.pages: tutorial_temp.html
+tutorial_temp.html: tutorial_temp.html
 
 # Sync all the pages at once
 pushindex:
 	make tutorial1.html.pages
 	make tutorial2.html.pages
+	make tutorial3.html.pages
 	make tutorial_temp.html.pages
 	make index.html.pages
 	cd pages && git push

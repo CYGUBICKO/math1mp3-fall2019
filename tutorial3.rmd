@@ -1,0 +1,130 @@
+---
+title: "Tutorial 3: Functions and Modules"
+author: "Steve Cygu"
+date: "`r format(Sys.time(), '%d %B %Y ')`"
+output: html_document
+#  tufte::tufte_html:
+#     pandoc_args: ["--dpi", "300"]
+---
+
+
+## Running Python
+
+- via **notebooks** (http://mcmaster.syzygy.ca or on your own computer)
+- via **scripts** + **console** (http://mcmaster.syzygy.ca/jupyter/user-redirect/lab)
+
+
+```{R opts,message=FALSE,echo=FALSE,warning=FALSE}
+library("knitr")
+library("reticulate")
+use_python("/usr/bin/python3")
+```
+
+# Functions
+
+When you know you will be performing the same operation many times, it is best to encapsulate this similar code into a function or a method.
+
+
+# Creating your own functions!
+When there is not an available function to perform a task, you can write your own functions.  Ths simplest functions have the  following format in Python:
+
+    def <function name>():
+        <function body>
+
+
+```{python, eval = TRUE}
+def do_nothing():
+    s = "I don't do much"
+```
+
+However, this often isn't very useful since we haven't returned any values from this file.  Note: that if you don't return anything from a function in Python, you implcitly have returned the special `None` singleton.  To return vaulues that you computed locally in the function body, use the **return** keyword.
+
+    def <function name>():
+        <functiom body>
+        return <local variable 1>
+
+Functions, may be defined to take parameters or **arguments**.
+
+    def <function name>(<argument>):
+        <function body>
+        return <local variable 1>
+
+The function name, arguments, and retun are jointly known as the **function signature** since the uniquely define the function's **interface**.
+
+
+```{python, eval = TRUE}
+def square(x):
+    sqr = x * x
+    return sqr
+```
+
+Fucntions may be defined such that they have multiple arguments or multiple return values:
+
+    def <function name>(<arg1>, <arg2>, ...):
+        <functiom body>
+        return <var1> , <var2>, ...
+
+
+
+```{python, eval = TRUE}
+def hello(time, name):
+    print('Good ' + time + ', ' + name + '!')
+```
+
+
+```{python, eval = TRUE}
+hello('afternoon', 'Software Carpentry')
+```
+
+
+```{python, eval = TRUE}
+# return both the quotient and remainder
+def quorem(a, b):
+    quo = a / b
+    rem = a % b
+    return quo, rem
+```
+
+
+```{python, eval = TRUE}
+quorem(42, 16)
+```
+
+Note that when you return multiple values you may unpack these into individual variables:
+
+
+```{python, eval = TRUE}
+q, r = quorem(42, 16)
+print(q)
+print(r)
+```
+
+**Quiz**
+
+Write a function called `increment` that increments (increases) one number by another number and returns the result. By default it should increment any number by `1`.
+
+
+## Lambdas
+
+Lambdas are small, single expression functions that are **anonymous** (they have no name).  They come from functional programming languages and the [Lambda Calculus](http://en.wikipedia.org/wiki/Lambda_calculus). Since they are so small they may be written on a single line.
+
+    lambda <args>: <expr>
+
+
+
+```{python, eval = TRUE}
+lambda x: x + 1
+```
+
+Note that just because they are implicitly anonymous, doesn't mean that you can't name them.
+
+
+```{python, eval = TRUE}
+f = lambda x, y: x + y +1
+```
+
+```{python, eval = TRUE}
+print(f(2, 3))
+print(f(4.5, 6))
+```
+
