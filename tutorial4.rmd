@@ -1,0 +1,153 @@
+---
+title: "Tutorial 4: More examples"
+author: "Steve Cygu"
+date: "`r format(Sys.time(), '%d %B %Y ')`"
+output: html_document
+#  tufte::tufte_html:
+#     pandoc_args: ["--dpi", "300"]
+---
+
+
+## Running Python
+
+- via **notebooks** (http://mcmaster.syzygy.ca or on your own computer)
+- via **scripts** + **console** (http://mcmaster.syzygy.ca/jupyter/user-redirect/lab)
+
+
+```{R opts,message=FALSE,echo=FALSE,warning=FALSE}
+library("knitr")
+library("reticulate")
+use_python("/usr/bin/python3")
+```
+
+## Hexadecimal/Decimal conversion 
+
+**Write a function that takes in hex and returns decimal numbers, [see here for mathematical definition](http://bbolker.github.io/math1mp/notes/week4.html)**
+
+	
+Decimal		|	Hex
+---			|	---
+0				|	0
+1				|	1
+...			|	...
+10				|	A
+...			|	...
+15				|	F
+
+
+**Example**: 85A2
+
+\[34210 = (8 \times 16^3) + (5 \times 16^2) + (10 \times 16^1) + (2 \times 16^0)\]
+
+
+We first create a function which gets the position (index) of digits from the input string.
+
+```{python, eval = TRUE}
+def get_hex_digit(num):
+	numbers = ['0', '1', '2', '3'
+		, '4', '5', '6', '7', '8'
+		, '9', 'A', 'B', 'C', 'D'
+		, 'E', 'F'
+	]
+
+	for i in range(len(numbers)):
+		if num.upper() == numbers[i]:
+			return(i)
+```
+
+We can test the function `get_hex_digit`
+
+```{python, eval = TRUE}
+hex_num = '85a2'
+
+for n in range(len(hex_num)):
+	get_hex_digit(hex_num[n])
+```
+
+We just need to find a way to (in reverse order) multiply by $16^n$, $n = 0,1,2,3$ and sum everything together.
+
+
+```{python, eval = TRUE}
+hex_num = '85a2'
+for n in range(len(hex_num)-1, -1, -1):
+	get_hex_digit(hex_num[n])
+```
+
+```{python, eval = TRUE}
+hex_num = '85a2'
+
+total = 0
+power = 0
+base = 16
+for n in range(len(hex_num)-1, -1, -1):
+	total += get_hex_digit(hex_num[n]) * base ** power
+	power += 1
+print(total)
+```
+
+We implement all the above as a function and call `get_hex_digit` within the function.
+
+
+```{python, eval = TRUE}
+def hex_to_decimal(hex_string):
+	total = 0
+	power = 0
+	base = 16
+	for n in range(len(hex_string)-1, -1, -1):
+		total += get_hex_digit(hex_string[n]) * base ** power
+		power += 1
+
+	return(total)
+```
+
+```{python, eval = TRUE}
+hex_to_decimal("2be13")
+```
+
+## Function Composition
+
+\[(g \quad \circ f)(x) = f(g(x)) \]
+
+**Example**
+
+Write a function, `squares`, which squares `x` and another function, `fourth_root`, which computes the fourth root of `x`. Write a function `composition` which applies `sqaures` on x `5` times and `fourth_root` on `x` `10` times.
+
+```{python, eval = TRUE}
+def squares(x):
+	return(x**2)
+
+def fourth_root(x):
+	return(x**(1/4))
+```
+
+Test the functions
+
+```{python, eval = TRUE}
+x = 16
+squares(x)
+```
+
+```{python, eval = TRUE}
+fourth_root(x)
+```
+
+```{python, eval = TRUE}
+def composition(f, g, x, n1 = 5, n2 = 10):
+	for i in range(n1):
+		x = f(x)
+	for i in range(n2):
+		x = g(x)
+	return(x)
+```
+
+```{python, eval = TRUE}
+composition(squares, fourth_root, x)
+```
+
+```{python, eval = TRUE}
+composition(squares, fourth_root, x, n1 = 1, n2 = 1)
+```
+
+
+
+
