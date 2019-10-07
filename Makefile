@@ -53,7 +53,6 @@ tutorial3.html: tutorial3.rmd
 
 # https://cygubicko.github.io/math1mp3-fall2019/tutorial4.html
 tutorial4.html: tutorial4.rmd
-Ignore += tutorial4.rmd
 
 ## Weekly tutorial templates
 # https://cygubicko.github.io/math1mp3-fall2019/tutorial_temp.html
