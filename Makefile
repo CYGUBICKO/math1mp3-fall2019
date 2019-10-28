@@ -46,13 +46,16 @@ index.html.pages: index.html
 tutorial1.html.pages: tutorial1.rmd
 
 # https://cygubicko.github.io/math1mp3-fall2019/tutorial2.html
-tutorial2.html.pages: tutorial2.rmd
+tutorial2.html: tutorial2.rmd
 
 # https://cygubicko.github.io/math1mp3-fall2019/tutorial3.html
 tutorial3.html: tutorial3.rmd
 
 # https://cygubicko.github.io/math1mp3-fall2019/tutorial4.html
 tutorial4.html: tutorial4.rmd
+
+# https://cygubicko.github.io/math1mp3-fall2019/tutorial5.html
+tutorial5.html: tutorial5.rmd
 
 ## Weekly tutorial templates
 # https://cygubicko.github.io/math1mp3-fall2019/tutorial_temp.html
@@ -64,6 +67,7 @@ pushindex:
 	make tutorial2.html.pages
 	make tutorial3.html.pages
 	make tutorial4.html.pages
+	make tutorial5.html.pages
 	make tutorial_temp.html.pages
 	make index.html.pages
 	cd pages && git push

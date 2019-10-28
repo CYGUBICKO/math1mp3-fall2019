@@ -1,0 +1,74 @@
+---
+title: "Tutorial 5: Dictionary and Sets"
+author: "Steve Cygu"
+date: "`r format(Sys.time(), '%d %B %Y ')`"
+output: html_document
+#  tufte::tufte_html:
+#     pandoc_args: ["--dpi", "300"]
+---
+
+
+## Running Python
+
+- via **notebooks** (http://mcmaster.syzygy.ca or on your own computer)
+- via **scripts** + **console** (http://mcmaster.syzygy.ca/jupyter/user-redirect/lab)
+
+
+```{R opts,message=FALSE,echo=FALSE,warning=FALSE}
+library("knitr")
+library("reticulate")
+use_python("/usr/bin/python3")
+```
+
+## Dictionaries
+
+- A Python dictionary is a unordered collection of **key-value** pairs
+	- The **key** is a way to name the data
+	- The **value** is the data itself
+
+```{python, eval = TRUE}
+data = {"experiment": "current vs. voltage"
+	, "run": 47
+	, "temperature": 372.756
+	, "current": [-1.0, -0.5, 0.0, 0.5, 1.0]
+	, "voltage": [-2.0, -1.0, 0.0, 1.0, 2.0]
+}
+print(data)
+```
+
+You can extract the values of the dictionary
+
+```{python, eval = TRUE}
+data["voltage"]
+```
+
+You can change the values too
+
+```{python, eval = TRUE}
+data["temperature"] = 20
+print(data)
+```
+
+Dictionaries, like strings, lists, and all the rest, have built-in methods. Lets say you wanted all the keys from a particular dictionary.
+
+keys
+```{python, eval = TRUE}
+data.keys()
+```
+and values
+
+```{python, eval = TRUE}
+data.values()
+```
+
+Unpacking dictionary keys and values
+
+```{python, eval = TRUE}
+my_dict = dict(A=1, B=2, C=3, D=4)
+my_keys = []
+my_vals = []
+for i, v in my_dict.items():
+	my_keys.append(i)
+	my_vals.append(v)
+print(my_keys)
+```
