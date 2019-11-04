@@ -35,6 +35,7 @@ Sources += $(wildcard *.R *.rmd *.tex *.sage *.ipynb *.py *.md)
 Sources += $(tutorials)
 Sources += example.txt
 Sources += example2.txt
+Sources += students_grades_summary.txt
 Sources += student_inquiries.md
 
 ######################################################################
