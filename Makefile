@@ -61,7 +61,7 @@ tutorial5.html: tutorial5.rmd
 
 ## Weekly tutorial templates
 # https://cygubicko.github.io/math1mp3-fall2019/tutorial_temp.html
-tutorial_temp.html: tutorial_temp.html
+tutorial_temp.html: tutorial_temp10.html
 
 # Sync all the pages at once
 pushindex:
@@ -70,7 +70,7 @@ pushindex:
 	make tutorial3.html.pages
 	make tutorial4.html.pages
 	make tutorial5.html.pages
-	make tutorial_temp.html.pages
+	make tutorial_temp10.html.pages
 	make index.html.pages
 	cd pages && git push
 
