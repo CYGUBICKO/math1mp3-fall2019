@@ -37,6 +37,7 @@ Sources += example.txt
 Sources += example2.txt
 Sources += students_grades_summary.txt
 Sources += student_inquiries.md
+Sources += CD3NOEXTREMES_DATA.csv
 
 ######################################################################
 
